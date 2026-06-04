@@ -62,6 +62,26 @@
   --gradient-red: linear-gradient(135deg, oklch(0.58 0.24 25) 0%, oklch(0.45 0.22 25) 100%);
   --shadow-red: 0 10px 40px -10px oklch(0.58 0.24 25 / 0.5);
   --shadow-glow: 0 0 30px oklch(0.58 0.24 25 / 0.4);
+  color-scheme: dark;
+}
+
+.light {
+  --background: oklch(0.985 0.003 20);
+  --foreground: oklch(0.16 0.01 20);
+  --surface: oklch(0.96 0.005 20);
+  --surface-elevated: oklch(0.99 0.003 20);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.16 0.01 20);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.16 0.01 20);
+  --secondary: oklch(0.94 0.01 20);
+  --secondary-foreground: oklch(0.16 0.01 20);
+  --muted: oklch(0.94 0.01 20);
+  --muted-foreground: oklch(0.42 0.02 20);
+  --border: oklch(0.88 0.01 20);
+  --input: oklch(0.96 0.005 20);
+  --gradient-hero: linear-gradient(135deg, oklch(0.985 0.003 20) 0%, oklch(0.92 0.06 25) 100%);
+  color-scheme: light;
 }
 
 .dark { color-scheme: dark; }
