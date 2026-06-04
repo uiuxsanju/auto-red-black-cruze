@@ -43,6 +43,7 @@ function Home() {
       <Hero />
       <Services />
       <WurthBanner />
+      <Gallery />
       <Process />
       <Contact />
       <Footer />
