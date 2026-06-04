@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { Shield, Sparkles, Square, Wrench, Layers, Droplets, Phone, MapPin, Clock, ChevronRight } from "lucide-react";
+import { useState } from "react";
+import { Shield, Sparkles, Square, Wrench, Layers, Droplets, Phone, MapPin, Clock, ChevronRight, Play, X, Images, Film } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
