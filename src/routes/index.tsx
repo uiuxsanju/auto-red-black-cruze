@@ -168,6 +168,120 @@ function WurthBanner() {
   );
 }
 
+const galleryImages = [
+  { src: "https://images.unsplash.com/photo-1605559424843-9e4c228bf1c2?w=800&q=80", title: "Ceramic Coating" },
+  { src: "https://images.unsplash.com/photo-1583121274602-3e2820c69888?w=800&q=80", title: "PPF Application" },
+  { src: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80", title: "Gloss Finish" },
+  { src: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?w=800&q=80", title: "Matte Wrap" },
+  { src: "https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&q=80", title: "Interior Detail" },
+  { src: "https://images.unsplash.com/photo-1494976388531-d1058494cdd8?w=800&q=80", title: "Window Tint" },
+  { src: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?w=800&q=80", title: "Showroom Shine" },
+  { src: "https://images.unsplash.com/photo-1544829099-b9a0c07fad1a?w=800&q=80", title: "Paint Correction" },
+];
+
+const galleryVideos = [
+  { thumb: "https://images.unsplash.com/photo-1511919884226-fd3cad34687c?w=800&q=80", title: "PPF Install Time-lapse", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+  { thumb: "https://images.unsplash.com/photo-1493238792000-8113da705763?w=800&q=80", title: "Hydrophobic Test", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+  { thumb: "https://images.unsplash.com/photo-1606664515524-ed2f786a0bd6?w=800&q=80", title: "Wrap Reveal", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+  { thumb: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?w=800&q=80", title: "Ceramic Beading", src: "https://www.w3schools.com/html/mov_bbb.mp4" },
+];
+
+function Gallery() {
+  const [tab, setTab] = useState<"images" | "videos">("images");
+  const [lightbox, setLightbox] = useState<{ type: "image" | "video"; src: string; title: string } | null>(null);
+
+  return (
+    <section id="gallery" className="py-24">
+      <div className="mx-auto max-w-7xl px-6">
+        <SectionLabel label="Our Work" />
+        <div className="mt-3 flex flex-wrap items-end justify-between gap-6">
+          <h2 className="font-display text-4xl font-black uppercase md:text-6xl">
+            Studio <span className="text-primary">Gallery</span>
+          </h2>
+          <div className="flex gap-2">
+            <button
+              onClick={() => setTab("images")}
+              className={`clip-angled flex items-center gap-2 px-6 py-3 font-display text-xs font-bold uppercase tracking-widest transition-all ${tab === "images" ? "bg-primary text-primary-foreground shadow-red" : "border-2 border-border bg-transparent text-muted-foreground hover:border-primary"}`}
+            >
+              <Images className="h-4 w-4" /> Images
+            </button>
+            <button
+              onClick={() => setTab("videos")}
+              className={`clip-angled flex items-center gap-2 px-6 py-3 font-display text-xs font-bold uppercase tracking-widest transition-all ${tab === "videos" ? "bg-primary text-primary-foreground shadow-red" : "border-2 border-border bg-transparent text-muted-foreground hover:border-primary"}`}
+            >
+              <Film className="h-4 w-4" /> Videos
+            </button>
+          </div>
+        </div>
+
+        {tab === "images" ? (
+          <div className="mt-12 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            {galleryImages.map((img, i) => (
+              <button
+                key={img.src}
+                onClick={() => setLightbox({ type: "image", src: img.src, title: img.title })}
+                className={`group relative overflow-hidden border border-border bg-card transition-all hover:border-primary hover:shadow-red ${i % 5 === 0 ? "sm:col-span-2 sm:row-span-2 aspect-square" : "aspect-[4/3]"}`}
+              >
+                <img src={img.src} alt={img.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" />
+                <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent opacity-0 transition-opacity group-hover:opacity-100" />
+                <div className="absolute bottom-0 left-0 right-0 translate-y-2 p-4 text-left opacity-0 transition-all group-hover:translate-y-0 group-hover:opacity-100">
+                  <div className="font-display text-sm font-bold uppercase tracking-wider text-primary">{img.title}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        ) : (
+          <div className="mt-12 grid gap-6 md:grid-cols-2">
+            {galleryVideos.map(v => (
+              <button
+                key={v.title}
+                onClick={() => setLightbox({ type: "video", src: v.src, title: v.title })}
+                className="group relative aspect-video overflow-hidden border border-border bg-card transition-all hover:border-primary hover:shadow-red"
+              >
+                <img src={v.thumb} alt={v.title} loading="lazy" className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-105" />
+                <div className="absolute inset-0 bg-background/40 transition-colors group-hover:bg-background/20" />
+                <div className="absolute inset-0 grid place-items-center">
+                  <div className="hex-shield grid h-20 w-20 place-items-center bg-primary text-primary-foreground transition-transform group-hover:scale-110">
+                    <Play className="h-8 w-8 fill-current" />
+                  </div>
+                </div>
+                <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-background to-transparent p-5 text-left">
+                  <div className="font-display text-lg font-bold uppercase tracking-wide">{v.title}</div>
+                </div>
+              </button>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {lightbox && (
+        <div
+          className="fixed inset-0 z-50 grid place-items-center bg-background/95 p-4 backdrop-blur-sm"
+          onClick={() => setLightbox(null)}
+        >
+          <button
+            onClick={() => setLightbox(null)}
+            className="absolute right-6 top-6 grid h-12 w-12 place-items-center border-2 border-primary bg-background text-primary transition-colors hover:bg-primary hover:text-primary-foreground"
+            aria-label="Close"
+          >
+            <X className="h-5 w-5" />
+          </button>
+          <div className="relative max-h-[90vh] w-full max-w-5xl" onClick={e => e.stopPropagation()}>
+            {lightbox.type === "image" ? (
+              <img src={lightbox.src} alt={lightbox.title} className="max-h-[90vh] w-full object-contain" />
+            ) : (
+              <video src={lightbox.src} controls autoPlay className="max-h-[90vh] w-full" />
+            )}
+            <div className="mt-4 text-center font-display text-lg font-bold uppercase tracking-wider text-primary">{lightbox.title}</div>
+          </div>
+        </div>
+      )}
+    </section>
+  );
+}
+
+
+
 function Process() {
   return (
     <section id="process" className="py-24">
