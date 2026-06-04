@@ -73,7 +73,7 @@ function Nav() {
           </div>
         </a>
         <div className="hidden items-center gap-8 md:flex">
-          {["Services", "Process", "Partner", "Contact"].map(l => (
+          {["Services", "Gallery", "Process", "Partner", "Contact"].map(l => (
             <a key={l} href={`#${l.toLowerCase()}`} className="text-sm font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary">{l}</a>
           ))}
         </div>
