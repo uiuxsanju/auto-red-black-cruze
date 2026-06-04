@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useState } from "react";
-import { Shield, Sparkles, Square, Wrench, Layers, Droplets, Phone, MapPin, Clock, ChevronRight, Play, X, Images, Film } from "lucide-react";
+import { useEffect, useState } from "react";
+import { Shield, Sparkles, Square, Wrench, Layers, Droplets, Phone, MapPin, Clock, ChevronRight, Play, X, Images, Film, Sun, Moon } from "lucide-react";
+import logoAsset from "@/assets/auto-cruze-logo.png.asset.json";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -61,12 +62,49 @@ function Home() {
   );
 }
 
+function useTheme() {
+  const [theme, setTheme] = useState<"dark" | "light">("dark");
+  useEffect(() => {
+    const saved = (typeof localStorage !== "undefined" && localStorage.getItem("ac-theme")) as "dark" | "light" | null;
+    const initial = saved ?? "dark";
+    setTheme(initial);
+  }, []);
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("light", theme === "light");
+    root.classList.toggle("dark", theme === "dark");
+    localStorage.setItem("ac-theme", theme);
+  }, [theme]);
+  return { theme, toggle: () => setTheme(t => (t === "dark" ? "light" : "dark")) };
+}
+
+function ThemeToggle({ theme, toggle }: { theme: "dark" | "light"; toggle: () => void }) {
+  return (
+    <button
+      onClick={toggle}
+      aria-label="Toggle theme"
+      className="grid h-10 w-10 place-items-center border-2 border-border text-foreground transition-colors hover:border-primary hover:text-primary"
+    >
+      {theme === "dark" ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </button>
+  );
+}
+
+function LogoMark({ size = 40 }: { size?: number }) {
+  return (
+    <div className="grid place-items-center rounded-sm bg-black p-1" style={{ height: size, width: size }}>
+      <img src={logoAsset.url} alt="Auto Cruze" className="h-full w-full object-contain" />
+    </div>
+  );
+}
+
 function Nav() {
+  const { theme, toggle } = useTheme();
   return (
     <nav className="fixed top-0 z-40 w-full border-b border-border bg-background/80 backdrop-blur-xl">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4">
         <a href="#home" className="flex items-center gap-3">
-          <div className="hex-shield grid h-10 w-10 place-items-center bg-primary font-display text-xl font-black text-primary-foreground">AC</div>
+          <LogoMark />
           <div className="leading-tight">
             <div className="font-display text-lg font-black tracking-wider">AUTO CRUZE</div>
             <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Würth Authorized</div>
@@ -77,7 +115,10 @@ function Nav() {
             <a key={l} href={`#${l.toLowerCase()}`} className="text-sm font-semibold uppercase tracking-wider text-muted-foreground transition-colors hover:text-primary">{l}</a>
           ))}
         </div>
-        <a href="#contact" className="clip-angled bg-primary px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-105">Book Now</a>
+        <div className="flex items-center gap-3">
+          <ThemeToggle theme={theme} toggle={toggle} />
+          <a href="#contact" className="clip-angled bg-primary px-6 py-2.5 font-display text-sm font-bold uppercase tracking-wider text-primary-foreground transition-transform hover:scale-105">Book Now</a>
+        </div>
       </div>
     </nav>
   );
@@ -356,7 +397,7 @@ function Footer() {
     <footer className="border-t border-border bg-background py-12">
       <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-6 px-6 md:flex-row">
         <div className="flex items-center gap-3">
-          <div className="hex-shield grid h-10 w-10 place-items-center bg-primary font-display text-lg font-black text-primary-foreground">AC</div>
+          <LogoMark size={40} />
           <div>
             <div className="font-display text-base font-black tracking-wider">AUTO CRUZE</div>
             <div className="text-[10px] uppercase tracking-[0.2em] text-muted-foreground">PPF · Ceramic · Filming</div>
