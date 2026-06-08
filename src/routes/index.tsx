@@ -194,7 +194,7 @@ function WurthBanner() {
         <div className="hex-shield grid h-32 w-32 place-items-center bg-background font-display text-3xl font-black text-primary">W</div>
         <div>
           <div className="text-xs font-bold uppercase tracking-[0.3em] text-primary-foreground/80">Official Partnership</div>
-          <h2 className="mt-2 font-display text-3xl font-black uppercase text-primary-foreground md:text-5xl">Powered by Würth</h2>
+          <h2 className="mt-2 font-display text-3xl font-black uppercase text-primary-foreground md:text-5xl">OFFICIAL PARTNERSHIP POWERED BY WÜRTH</h2>
           <p className="mt-3 max-w-2xl text-primary-foreground/90">
             We use only genuine Würth chemicals, films and tools — the same trusted by professional detailers across the globe.
           </p>
